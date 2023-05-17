@@ -1,7 +1,8 @@
 import React from 'react'
+import { Box } from '@mui/material'
 
 const Filter = () => {
-  return <div>Filter</div>
+  return <Box sx={{ py: '14px' }}>Filter</Box>
 }
 
 export default Filter

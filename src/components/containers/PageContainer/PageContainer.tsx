@@ -32,8 +32,12 @@ const PageContainer: React.FC<Props> = ({ children }) => {
         component='main'
         sx={{
           flexGrow: 1,
-          p: 3,
+          px: 15,
           width: { sm: `calc(100% - ${drawerWidth}px)` },
+          minWidth: '1440px',
+          boxSizing: 'content-box',
+          minHeight: '100vh',
+          backgroundColor: '#f1f4f9',
         }}
       >
         <Toolbar />
