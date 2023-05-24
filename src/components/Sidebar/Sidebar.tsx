@@ -7,18 +7,14 @@ import ListItemButton from '@mui/material/ListItemButton'
 import ListItemIcon from '@mui/material/ListItemIcon'
 import ListItemText from '@mui/material/ListItemText'
 import Toolbar from '@mui/material/Toolbar'
+import { Typography } from '@mui/material'
+import AddCircleIcon from '@mui/icons-material/AddCircle'
+import ErrorIcon from '@mui/icons-material/Error'
+
+import { sidebarTabs } from './SidebarIcons'
+import CustomButton from '../../common/Button/CustomButton'
 import { drawerWidth } from '../../utils/consts'
 import Logo from '../icons/Logo'
-import TimelineIcon from '@mui/icons-material/Timeline'
-import DoneAllIcon from '@mui/icons-material/DoneAll'
-import MailOutlineIcon from '@mui/icons-material/MailOutline'
-import PhoneOutlinedIcon from '@mui/icons-material/PhoneOutlined'
-import PeopleOutlineOutlinedIcon from '@mui/icons-material/PeopleOutlineOutlined'
-import DescriptionOutlinedIcon from '@mui/icons-material/DescriptionOutlined'
-import PermIdentityOutlinedIcon from '@mui/icons-material/PermIdentityOutlined'
-import WorkOutlineOutlinedIcon from '@mui/icons-material/WorkOutlineOutlined'
-import LocalLibraryOutlinedIcon from '@mui/icons-material/LocalLibraryOutlined'
-import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined'
 
 interface Props {
   window?: () => Window
@@ -26,40 +22,90 @@ interface Props {
   onDrawerToggle: () => void
 }
 
-const tabs = {
-  Итоги: <TimelineIcon />,
-  Заказы: <DoneAllIcon />,
-  Сообщения: <MailOutlineIcon />,
-  Звонки: <PhoneOutlinedIcon />,
-  Контрагенты: <PeopleOutlineOutlinedIcon />,
-  Документы: <DescriptionOutlinedIcon />,
-  Исполнители: <PermIdentityOutlinedIcon />,
-  Отчеты: <WorkOutlineOutlinedIcon />,
-  'База знаний': <LocalLibraryOutlinedIcon />,
-  Настройки: <SettingsOutlinedIcon />,
-}
-
 const Sidebar: React.FC<Props> = ({ window, mobileOpen, onDrawerToggle }) => {
+  const [isActiveTab, setActiveTab] = React.useState<string>('Звонки')
+
   const drawer = (
     <div>
       <Toolbar>
         <Logo />
       </Toolbar>
-      <List>
-        {Object.keys(tabs).map((text, index) => (
-          <ListItem key={text} disablePadding>
-            <ListItemButton>
-              <ListItemIcon sx={{ color: 'rgba(255, 255, 255, 0.6)' }}>
-                {Object.values(tabs)[index]}
-              </ListItemIcon>
-              <ListItemText
-                primary={text}
-                sx={{ color: 'rgba(255, 255, 255, 0.6)' }}
-              />
-            </ListItemButton>
-          </ListItem>
-        ))}
+      <List sx={{ mb: '56px' }}>
+        {Object.keys(sidebarTabs).map((text, index) =>
+          text === isActiveTab ? (
+            <ListItem
+              key={text}
+              disablePadding
+              sx={{
+                position: 'relative',
+                borderLeft: '3px solid #002cfb',
+                backgroundColor: 'rgba(216, 228, 251, 0.32)',
+              }}
+            >
+              <ListItemButton>
+                <ListItemIcon sx={{ color: '#fff' }}>
+                  {Object.values(sidebarTabs)[index]}
+                </ListItemIcon>
+                <ListItemText primary={text} sx={{ color: '#fff' }} />
+              </ListItemButton>
+              <span
+                style={{
+                  position: 'absolute',
+                  top: '20px',
+                  right: '12px',
+                  width: '8px',
+                  height: '8px',
+                  borderRadius: '50%',
+                  backgroundColor: '#ffd500',
+                  boxShadow: '0px 3px 8px rgba(237, 218, 1, 0.5)',
+                }}
+              ></span>
+            </ListItem>
+          ) : (
+            <ListItem key={text} disablePadding>
+              <ListItemButton>
+                <ListItemIcon sx={{ color: 'rgba(255, 255, 255, 0.6)' }}>
+                  {Object.values(sidebarTabs)[index]}
+                </ListItemIcon>
+                <ListItemText
+                  primary={text}
+                  sx={{ color: 'rgba(255, 255, 255, 0.6)' }}
+                />
+              </ListItemButton>
+            </ListItem>
+          )
+        )}
       </List>
+      <Box sx={{ display: 'flex', flexDirection: 'column', rowGap: '2rem' }}>
+        <CustomButton
+          icon={
+            <AddCircleIcon
+              sx={{
+                width: 24,
+                height: 24,
+                margin: 0,
+                opacity: 0.56,
+              }}
+            />
+          }
+        >
+          <Typography sx={{ m: '0 auto' }}>Добавить заказ</Typography>
+        </CustomButton>
+        <CustomButton
+          icon={
+            <ErrorIcon
+              sx={{
+                width: 24,
+                height: 24,
+                margin: 0,
+                opacity: 0.56,
+              }}
+            />
+          }
+        >
+          <Typography sx={{ m: '0 auto' }}>Оплата</Typography>
+        </CustomButton>
+      </Box>
     </div>
   )
 

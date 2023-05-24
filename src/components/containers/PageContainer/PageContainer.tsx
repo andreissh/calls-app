@@ -34,7 +34,6 @@ const PageContainer: React.FC<Props> = ({ children }) => {
           flexGrow: 1,
           px: 15,
           width: { sm: `calc(100% - ${drawerWidth}px)` },
-          minWidth: '1440px',
           boxSizing: 'content-box',
           minHeight: '100vh',
           backgroundColor: '#f1f4f9',
